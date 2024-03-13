@@ -28,7 +28,7 @@ const usePokemonDetails = (pokemonList: PokemonListItem[] = []): UseQueryResult<
       return {
         queryKey: ['pokemonDetails', pokemon.name],
         queryFn: () => axios.get(pokemon.url).then(response => response.data),
-        staleTime: 5 * 60 * 1000, // 5 minutes
+        staleTime: 5 * 60 * 1000, // 5 minutes to next refresh
       };
     })
   );

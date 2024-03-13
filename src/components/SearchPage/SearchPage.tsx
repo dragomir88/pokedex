@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "react-query";
 import usePokemonDetails from "../hooks/usePokemonDetails";
 import PokemonList from "../PokemonList/PokemonList";
@@ -9,19 +9,29 @@ import {
   filterPokemonsWithDetails,
 } from "../utils/pokemonApiUtils";
 import { Box } from "@mui/material";
+import { useLocation } from 'react-router-dom';
 
 function SearchPage() {
   const [filter, setFilter] = useState("");
   const [selectedType, setSelectedType] = useState("");
+  const location = useLocation();
 
+  const useQueryParams = () => new URLSearchParams(location.search);
+  const queryParams = useQueryParams();
   const {
     data: pokemonList,
     isLoading,
     isError,
   } = useQuery("pokemons", fetchPokemons);
 
-  const pokemonDetailsQueries = usePokemonDetails(pokemonList);
+  useEffect(() => {
+    const searchParam = queryParams.get('search');
+    if (searchParam) {
+      setFilter(searchParam);
+    }
+  }, [queryParams]);
 
+  const pokemonDetailsQueries = usePokemonDetails(pokemonList);
   const filteredPokemonsWithDetails = filterPokemonsWithDetails(
     pokemonDetailsQueries,
     filter,

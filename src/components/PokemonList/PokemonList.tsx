@@ -4,11 +4,11 @@ import { Pokemon } from "../utils/pokemonApiUtils";
 import { Link } from "react-router-dom";
 
 const PokemonList = ({ pokemons }: { pokemons: Pokemon[] }) => {
-  return (
+  return (  
     <Grid container spacing={2}>
       {pokemons.map((pokemon) => (
-        <Link to={`/pokemon/${pokemon.name}`}>
-          <PokemonCard key={pokemon.name} pokemon={pokemon} />
+        <Link key={pokemon.id} to={`/pokemon/${pokemon.name}`}>
+          <PokemonCard  pokemon={pokemon} />
         </Link>
       ))}
     </Grid>

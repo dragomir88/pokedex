@@ -1,9 +1,10 @@
 import { PokemonClient } from 'pokenode-ts';
 
-export interface Pokemon {
+export interface  Pokemon {
     id: number;
     name: string;
     types: PokemonType[];
+    sprites: {front_default:string};
   }
   
  export interface PokemonListItem {
